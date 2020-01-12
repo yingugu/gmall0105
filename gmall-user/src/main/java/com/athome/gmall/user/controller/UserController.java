@@ -1,8 +1,10 @@
 package com.athome.gmall.user.controller;
 
-import com.athome.gmall.user.bean.UmsMember;
-import com.athome.gmall.user.service.UserService;
+import com.athome.gmall.bean.UmsMember;
+import com.athome.gmall.bean.UmsMemberReceiveAddress;
+import com.athome.gmall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +28,12 @@ public class UserController {
 
         List<UmsMember> umsMembers = userService.getAllUser();
         return umsMembers;
+    }
+
+    @RequestMapping("getReceiveAddressByMemberId")
+    public List<UmsMemberReceiveAddress> getReciveAddressByMemberId( String memberId){
+        List<UmsMemberReceiveAddress> umsMemberReceiveAddresses = userService.getReceiveAddressByMemberId(memberId);
+        return umsMemberReceiveAddresses;
+
     }
 }

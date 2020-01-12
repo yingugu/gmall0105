@@ -11,3 +11,7 @@ mybatis:
     map-underscore-to-camel-case: true
 server:
   port: 8080
+# 日志级别设置
+logging:
+  level:
+    root: info
