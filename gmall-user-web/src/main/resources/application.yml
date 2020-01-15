@@ -1,0 +1,22 @@
+server:
+  port: 8080
+logging:
+  level: debug
+spring:
+  dubbo:
+    application: user-web
+    protocol:
+      name: dubbo
+    registry:
+      address: 10.56.0.61:2181
+      protocol: zookeeper
+    base-package: com.athome.gmall
+    #dubbo的consumer在三秒钟之内每间隔一秒进行一次重新访问，默认一秒钟，
+    #三次访问之后会直接抛超时异常，所以在开发阶段，可以将consumer设置
+    #的超时时间延长 单位是毫秒（下面设置的是十分钟）
+    consumer:
+      timeout: 600000
+      #设置启动时是否检查服务存在,debug过程中，可以先设置为不检查
+      check: false
+
+

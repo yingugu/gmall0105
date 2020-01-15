@@ -1,5 +1,6 @@
 package com.athome.gmall.user.controller;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.athome.gmall.bean.UmsMember;
 import com.athome.gmall.bean.UmsMemberReceiveAddress;
 import com.athome.gmall.service.UserService;
@@ -12,7 +13,9 @@ import java.util.List;
 
 @RestController
 public class UserController {
-    @Autowired
+//    @Autowired
+//    UserService userService;
+    @Reference
     UserService userService;
     @RequestMapping("index")
     public String index(){
