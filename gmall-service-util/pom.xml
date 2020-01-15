@@ -6,8 +6,8 @@
 
 
     <parent>
-        <artifactId>gmall-parent</artifactId>
         <groupId>com.athome.gmall</groupId>
+        <artifactId>gmall-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <groupId>com.athome.gmall</groupId>
