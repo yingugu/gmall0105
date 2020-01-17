@@ -27,4 +27,4 @@ server:
 # 日志级别设置
 logging:
   level:
-    root: info
+    root: debug

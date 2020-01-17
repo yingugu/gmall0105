@@ -7,7 +7,7 @@ spring:
   #dubbo的配置
   dubbo:
     #dubbo的服务名称
-    application: user-service
+    application: manage-service
     #dubbo的服务中心地址
     registry:
       address: 10.56.0.61:2181
@@ -23,7 +23,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 server:
-  port: 8070
+  port: 8071
 # 日志级别设置
 logging:
   level:
