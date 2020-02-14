@@ -9,3 +9,4 @@
 # gmall-user-service用户服务的service层8071
 # gmall-user-web用户服务的web层8081
 # gmall-manage-web后台管理服务端口号8071
+# spu添加部分，修改表单内部两个表单的productId添加
