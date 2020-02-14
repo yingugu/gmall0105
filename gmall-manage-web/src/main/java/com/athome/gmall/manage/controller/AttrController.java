@@ -3,6 +3,7 @@ package com.athome.gmall.manage.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.athome.gmall.bean.PmsBaseAttrInfo;
 import com.athome.gmall.bean.PmsBaseAttrValue;
+import com.athome.gmall.bean.PmsBaseSaleAttr;
 import com.athome.gmall.bean.PmsProductInfo;
 import com.athome.gmall.service.AttrInfoService;
 import com.athome.gmall.service.AttrValueService;
@@ -44,5 +45,11 @@ public class AttrController {
         String success = attrInfoService.saveAttrInfo(pmsProductInfo);
         return success;
 
+    }
+    @RequestMapping("baseSaleAttrList")
+    @ResponseBody
+    public List<PmsBaseSaleAttr> baseSaleAttrList(){
+        List<PmsBaseSaleAttr> pmsBaseSaleAttrs = attrInfoService.getbaseSaleAttrList();
+        return pmsBaseSaleAttrs;
     }
 }

@@ -8,7 +8,7 @@ spring:
     protocol:
       name: dubbo
     registry:
-      address: 10.56.0.61:2181
+      address: 115.28.131.8:2181
       protocol: zookeeper
     base-package: com.athome.gmall
     #dubbo的consumer在三秒钟之内每间隔一秒进行一次重新访问，默认一秒钟，

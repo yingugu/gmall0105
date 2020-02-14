@@ -4,9 +4,11 @@ import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.athome.gmall.bean.PmsBaseAttrInfo;
 import com.athome.gmall.bean.PmsBaseAttrValue;
+import com.athome.gmall.bean.PmsBaseSaleAttr;
 import com.athome.gmall.bean.PmsProductInfo;
 import com.athome.gmall.manage.mapper.PmsBaseAttrInfoMapper;
 import com.athome.gmall.manage.mapper.PmsBaseAttrValueMapper;
+import com.athome.gmall.manage.mapper.PmsBaseSaleAttrMapper;
 import com.athome.gmall.service.AttrInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
@@ -19,11 +21,15 @@ public class AttrInfoServiceImpl implements AttrInfoService {
     PmsBaseAttrInfoMapper pmsBaseAttrInfoMapper;
     @Autowired
     PmsBaseAttrValueMapper pmsBaseAttrValueMapper;
+    @Autowired
+    PmsBaseSaleAttrMapper pmsBaseSaleAttrMapper;
+
     @Override
     public List<PmsBaseAttrInfo> getAttrInfoList(String catalog3Id) {
         List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.selectAll();
         return pmsBaseAttrInfos;
     }
+
 
     @Override
     public String saveAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo) {
@@ -62,9 +68,15 @@ public class AttrInfoServiceImpl implements AttrInfoService {
             success = "SUCCESS";
         } catch (Exception e) {
             e.printStackTrace();
-            success = "SUCCESS";
+            success = "FALSE";
         }
         return success;
+    }
+
+    @Override
+    public List<PmsBaseSaleAttr> getbaseSaleAttrList() {
+        List<PmsBaseSaleAttr> pmsBaseSaleAttrs = pmsBaseSaleAttrMapper.selectAll();
+        return pmsBaseSaleAttrs;
     }
 
 }
