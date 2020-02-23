@@ -3,7 +3,7 @@ spring:
   datasource:
     password: root
     username: root
-    url: jdbc:mysql://localhost:3306/gmall_study?characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://106.13.34.196:3306/gmall_study?characterEncoding=UTF-8&useSSL=false
   #dubbo的配置
   dubbo:
     #dubbo的服务名称

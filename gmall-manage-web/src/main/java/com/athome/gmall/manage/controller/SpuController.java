@@ -4,10 +4,8 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.athome.gmall.bean.PmsProductInfo;
 import com.athome.gmall.service.PmsProductInfoService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -28,5 +26,14 @@ public class SpuController {
         String revalue = pmsProductInfoService.saveSpuInfo(pmsProductInfo);
 
         return revalue;
+    }
+    @RequestMapping("fileUpload")
+    @ResponseBody
+    public String fileUpload(@RequestParam("file")MultipartFile multipartFile){
+        //将图片上传到分布式文件系统
+
+        //图片路径返回给页面
+        String imgUrl = "";
+        return imgUrl;
     }
 }
