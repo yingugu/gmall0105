@@ -31,7 +31,7 @@ public class PmsProductInfo implements Serializable {
     @Transient
     private List<PmsProductSaleAttr> pmsProductSaleAttrList;
     @Transient
-    private List<PmsProductImage> pmsProductImageList;
+    private List<PmsProductImage> spuImageList;
 
 
     public String getProductName() {
@@ -51,11 +51,11 @@ public class PmsProductInfo implements Serializable {
     }
 
     public List<PmsProductImage> getPmsProductImageList() {
-        return pmsProductImageList;
+        return spuImageList;
     }
 
     public void setPmsProductImageList(List<PmsProductImage> pmsProductImageList) {
-        this.pmsProductImageList = pmsProductImageList;
+        this.spuImageList = pmsProductImageList;
     }
 
 

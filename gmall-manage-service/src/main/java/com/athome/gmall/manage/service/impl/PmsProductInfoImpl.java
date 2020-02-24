@@ -1,9 +1,11 @@
 package com.athome.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.athome.gmall.bean.PmsProductImage;
 import com.athome.gmall.bean.PmsProductInfo;
 import com.athome.gmall.bean.PmsProductSaleAttr;
 import com.athome.gmall.bean.PmsProductSaleAttrValue;
+import com.athome.gmall.manage.mapper.PmsProductImageMapper;
 import com.athome.gmall.manage.mapper.PmsProductInfoMapper;
 import com.athome.gmall.manage.mapper.PmsProductSaleAttrMapper;
 import com.athome.gmall.manage.mapper.PmsProductSaleAttrValueMapper;
@@ -20,6 +22,8 @@ public class PmsProductInfoImpl implements PmsProductInfoService {
     PmsProductSaleAttrMapper pmsProductSaleAttrMapper;
     @Autowired
     PmsProductSaleAttrValueMapper pmsProductSaleAttrValueMapper;
+    @Autowired
+    PmsProductImageMapper pmsProductImageMapper;
     @Override
     public List<PmsProductInfo> getspuList(String catalog3Id) {
         PmsProductInfo pmsProductInfo = new PmsProductInfo();
@@ -35,11 +39,18 @@ public class PmsProductInfoImpl implements PmsProductInfoService {
         try {
             pmsProductInfoMapper.insertSelective(pmsProductInfo);
             List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductInfo.getPmsProductSaleAttrList();
+            List<PmsProductImage> pmsProductImageList = pmsProductInfo.getPmsProductImageList();
+            for (PmsProductImage pmsProductImage:pmsProductImageList){
+                pmsProductImage.setProductId(pmsProductInfo.getId());
+                pmsProductImageMapper.insertSelective(pmsProductImage);
+            }
             for (int i=0;i<pmsProductSaleAttrList.size();i++){
+                pmsProductSaleAttrList.get(i).setProductId(pmsProductInfo.getId());
               List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList
                       =  pmsProductSaleAttrList.get(i).getPmsProductSaleAttrValueList();
                 pmsProductSaleAttrMapper.insertSelective(pmsProductSaleAttrList.get(i));
                 for (int j=0;j<pmsProductSaleAttrValueList.size();j++){
+                    pmsProductSaleAttrValueList.get(j).setProductId(pmsProductInfo.getId());
                     pmsProductSaleAttrValueMapper.insertSelective(pmsProductSaleAttrValueList.get(j));
                 }
             }

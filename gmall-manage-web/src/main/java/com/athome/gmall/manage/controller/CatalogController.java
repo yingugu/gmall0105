@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @CrossOrigin
 public class CatalogController {
-    @Reference
+    @Reference(timeout = 30000)
     CatalogService catalogService;
     @RequestMapping("getCatalog1")
     @ResponseBody
