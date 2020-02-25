@@ -1,20 +1,16 @@
 package com.athome.gmall.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.athome.gmall.bean.PmsBaseSaleAttr;
 import com.athome.gmall.bean.PmsProductInfo;
+import com.athome.gmall.bean.PmsProductSaleAttr;
+import com.athome.gmall.service.PmsProductSaleAttrService;
 import com.athome.gmall.manage.util.PmsUploadUtil;
 import com.athome.gmall.service.PmsProductInfoService;
-import com.sun.demo.jvmti.hprof.Tracker;
-import org.csource.common.MyException;
-import org.csource.fastdfs.ClientGlobal;
-import org.csource.fastdfs.StorageClient;
-import org.csource.fastdfs.TrackerClient;
-import org.csource.fastdfs.TrackerServer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -22,6 +18,8 @@ import java.util.List;
 public class SpuController  {
     @Reference
     PmsProductInfoService pmsProductInfoService;
+    @Reference
+    PmsProductSaleAttrService pmsProductSaleAttrService;
     @RequestMapping("spuList")
     @ResponseBody
     public List<PmsProductInfo> spuList(String catalog3Id){
@@ -44,4 +42,11 @@ public class SpuController  {
         String imgUrl = PmsUploadUtil.uploadImage(multipartFile);
         return imgUrl;
     }
+//    @RequestMapping("spuSaleAttrList")
+//    @ResponseBody
+//    public List<PmsProductSaleAttr> spuSaleAttrList(String spuId){
+//        List<PmsProductSaleAttr> pmsBaseSaleAttrList = pmsProductSaleAttrService.getSaleAttrList(spuId);
+//        return pmsBaseSaleAttrList;
+//
+//    }
 }

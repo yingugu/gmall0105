@@ -13,6 +13,7 @@ import com.athome.gmall.service.AttrInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 
@@ -26,7 +27,16 @@ public class AttrInfoServiceImpl implements AttrInfoService {
 
     @Override
     public List<PmsBaseAttrInfo> getAttrInfoList(String catalog3Id) {
-        List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.selectAll();
+        PmsBaseAttrInfo pmsBaseAttrInfo = new PmsBaseAttrInfo();
+        pmsBaseAttrInfo.setCatalog3Id(catalog3Id);
+        List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.select(pmsBaseAttrInfo);
+        for (PmsBaseAttrInfo baseAttrInfo : pmsBaseAttrInfos) {
+            List<PmsBaseAttrValue> pmsBaseAttrValueList = new ArrayList<>();
+            PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
+            pmsBaseAttrValue.setAttrId(baseAttrInfo.getId());
+            pmsBaseAttrValueList = pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
+            baseAttrInfo.setAttrValueList(pmsBaseAttrValueList);
+        }
         return pmsBaseAttrInfos;
     }
 
