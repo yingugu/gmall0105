@@ -33,6 +33,22 @@ public class PmsProductInfoImpl implements PmsProductInfoService {
     }
 
     @Override
+    public List<PmsProductSaleAttr> getSaleAttrList(String spuId) {
+        PmsProductSaleAttr pmsProductSaleAttr = new PmsProductSaleAttr();
+        pmsProductSaleAttr.setProductId(spuId);
+        List<PmsProductSaleAttr> pmsProductSaleAttrs = pmsProductSaleAttrMapper.select(pmsProductSaleAttr);
+        for (PmsProductSaleAttr productSaleAttr : pmsProductSaleAttrs) {
+            PmsProductSaleAttrValue pmsProductSaleAttrValue = new PmsProductSaleAttrValue();
+            pmsProductSaleAttrValue.setProductId(spuId);
+            pmsProductSaleAttrValue.setSaleAttrId(productSaleAttr.getSaleAttrId());
+            List<PmsProductSaleAttrValue> pmsProductSaleAttrValuesp = pmsProductSaleAttrValueMapper.select(pmsProductSaleAttrValue);
+            productSaleAttr.setSpuSaleAttrValueList(pmsProductSaleAttrValuesp);
+        }
+
+        return pmsProductSaleAttrs;
+    }
+
+    @Override
     public String saveSpuInfo(PmsProductInfo pmsProductInfo) {
         String revalue = null;
 
@@ -47,7 +63,7 @@ public class PmsProductInfoImpl implements PmsProductInfoService {
             for (int i=0;i<pmsProductSaleAttrList.size();i++){
                 pmsProductSaleAttrList.get(i).setProductId(pmsProductInfo.getId());
               List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList
-                      =  pmsProductSaleAttrList.get(i).getPmsProductSaleAttrValueList();
+                      =  pmsProductSaleAttrList.get(i).getSpuSaleAttrValueList();
                 pmsProductSaleAttrMapper.insertSelective(pmsProductSaleAttrList.get(i));
                 for (int j=0;j<pmsProductSaleAttrValueList.size();j++){
                     pmsProductSaleAttrValueList.get(j).setProductId(pmsProductInfo.getId());
@@ -61,5 +77,13 @@ public class PmsProductInfoImpl implements PmsProductInfoService {
             revalue="FALSE";
         }
         return revalue;
+    }
+
+    @Override
+    public List<PmsProductImage> getspuImageList(String spuId) {
+        PmsProductImage pmsProductImage = new PmsProductImage();
+        pmsProductImage.setProductId(spuId);
+        List<PmsProductImage> pmsProductImages = pmsProductImageMapper.select(pmsProductImage);
+        return pmsProductImages;
     }
 }

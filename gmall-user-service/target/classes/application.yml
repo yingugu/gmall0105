@@ -3,14 +3,14 @@ spring:
   datasource:
     password: root
     username: root
-    url: jdbc:mysql://localhost:3306/gmall_study?characterEncoding=UTF-8
+    url: jdbc:mysql://106.13.34.196:3306/gmall_study?characterEncoding=UTF-8&useSSL=false
   #dubbo的配置
   dubbo:
     #dubbo的服务名称
     application: user-service
     #dubbo的服务中心地址
     registry:
-      address: 10.56.0.61:2181
+      address: 115.28.131.8:2181
       #zookeeper的通讯协议的名称
       protocol: zookeeper
     #dubbo的通讯协议名称
