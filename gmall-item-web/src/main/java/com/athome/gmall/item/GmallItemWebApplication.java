@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.athome.gmall.item;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class GmallItemWebApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(GmallItemWebApplication.class, args);
     }
 
 }

@@ -10,3 +10,8 @@
 # gmall-user-web用户服务的web层8081
 # gmall-manage-web后台管理服务端口号8071
 # spu添加部分，修改表单内部两个表单的productId添加
+
+
+gmall-item-service 前台商品详情的服务 8082  因为商品详情实际就是spu和sku  所以不必重复写，可以直接用后台中的
+
+gmall-item-web前台商品详情展示  8082 
