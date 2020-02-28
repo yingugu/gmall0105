@@ -9,7 +9,7 @@ import java.util.List;
 public interface PmsProductInfoService {
     List<PmsProductInfo> getspuList(String catalog3Id);
     List<PmsProductSaleAttr> getSaleAttrList(String spuId);
-    String saveSpuInfo(PmsProductInfo pmsProductInfo);
+    void saveSpuInfo(PmsProductInfo pmsProductInfo);
 
     List<PmsProductImage> getspuImageList(String spuId);
 }

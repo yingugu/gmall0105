@@ -1,10 +1,58 @@
 <!DOCTYPE html>
+<!--引入thymeleaf-->
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <title>Title</title>
 </head>
 <body>
-   asdadasdas
+   hello thymeleaf !
+    <br />
+<!-- 取值-->
+   <!--如果是jsp，取值方式是{hello}-->
+   <br />
+   <!--打底值  是默认值，如果没有用thymeleaf扩展标签，就显示打底值，th开头的 ，
+   都是thymeleaf特有的标签，且不会解析el表达式-->
+   <!--取值-->
+<p th:text="${hello}"> 打底值</p>
+    <!--循环-->
+    <!--jstl中写法：<c:foreach list var = string>
+    <string.name><string.xxx>......
+    </c:foreach>
+    -->
+<!--thymeleaf写法-->
+   <!--循环list，每次循环结果设置为str-->
+   <p th:each="str:${list}" th:text="${str}"></p>
+
+<!--另一种循环，循环单拿出来-->
+<p th:each="str:${list}">
+    <input th:text="${str}" />
+</p>
+<!--判断-->
+   <p th:if="这里面写判断（bool结果的）"> 我是存在的</p>
+<!--三目运算符-->
+<input type="checkbox" th:text="(${check}==1)?'checked':''" th:checked="${check}=='0'"/>
+<!--页面引入-->
+   <!--动态引入和静态引入（include）（静态先引入后编译和动态先编译后引入）-->
+<div th:include="indexInner"></div>
+   <!--引入引入页面的一部分页面
+  -->
+  <div th:include="indexInner::innerPart"></div>
+
+<!--传值给JavaScript-->
+   <!--如果想用thymeleaf的方式将域中的参数传入JavaScript中，
+   需要加单引号,代表告诉thymeleaf这里是一个其他语言的表达式（转义的作用），
+   用的时候需要拼接，因为${}中是thymeleaf表达式,且传递的是字符串，要将thymeleaf表达式
+   用单引号括起来，需要转义（\'）,javascript中，数字可以直接传，字符串需要单引号-->
+   <a th:href="'javascript:a(\''+${hello}+'\')'">dianyixiazi</a>
+
+
+
+<script language="JavaScript">
+    function a() {
+        alert("js函数被调用");
+    }
+    
+</script>
 </body>
 </html>

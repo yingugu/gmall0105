@@ -25,11 +25,11 @@ public class SpuController  {
     }
     @RequestMapping("saveSpuInfo")
     @ResponseBody
-    public String saveSpuInfo(@RequestBody PmsProductInfo pmsProductInfo){
+    public void saveSpuInfo(@RequestBody PmsProductInfo pmsProductInfo){
 
-        String revalue = pmsProductInfoService.saveSpuInfo(pmsProductInfo);
+        pmsProductInfoService.saveSpuInfo(pmsProductInfo);
 
-        return revalue;
+        //return revalue;
     }
     @RequestMapping("fileUpload")
     @ResponseBody

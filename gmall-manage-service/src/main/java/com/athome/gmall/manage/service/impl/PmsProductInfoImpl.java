@@ -2,6 +2,7 @@ package com.athome.gmall.manage.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.athome.gmall.bean.PmsProductImage;
+
 import com.athome.gmall.bean.PmsProductInfo;
 import com.athome.gmall.bean.PmsProductSaleAttr;
 import com.athome.gmall.bean.PmsProductSaleAttrValue;
@@ -49,21 +50,21 @@ public class PmsProductInfoImpl implements PmsProductInfoService {
     }
 
     @Override
-    public String saveSpuInfo(PmsProductInfo pmsProductInfo) {
+    public void saveSpuInfo(PmsProductInfo pmsProductInfo) {
         String revalue = null;
 
         try {
             pmsProductInfoMapper.insertSelective(pmsProductInfo);
-            List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductInfo.getPmsProductSaleAttrList();
-            List<PmsProductImage> pmsProductImageList = pmsProductInfo.getPmsProductImageList();
+            List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductInfo.getSpuSaleAttrList();
+            List<PmsProductImage> pmsProductImageList = pmsProductInfo.getSpuImageList();
             for (PmsProductImage pmsProductImage:pmsProductImageList){
                 pmsProductImage.setProductId(pmsProductInfo.getId());
                 pmsProductImageMapper.insertSelective(pmsProductImage);
             }
             for (int i=0;i<pmsProductSaleAttrList.size();i++){
                 pmsProductSaleAttrList.get(i).setProductId(pmsProductInfo.getId());
-              List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList
-                      =  pmsProductSaleAttrList.get(i).getSpuSaleAttrValueList();
+                List<PmsProductSaleAttrValue> pmsProductSaleAttrValueList
+                        =  pmsProductSaleAttrList.get(i).getSpuSaleAttrValueList();
                 pmsProductSaleAttrMapper.insertSelective(pmsProductSaleAttrList.get(i));
                 for (int j=0;j<pmsProductSaleAttrValueList.size();j++){
                     pmsProductSaleAttrValueList.get(j).setProductId(pmsProductInfo.getId());
@@ -76,9 +77,8 @@ public class PmsProductInfoImpl implements PmsProductInfoService {
             e.printStackTrace();
             revalue="FALSE";
         }
-        return revalue;
+        //return revalue;
     }
-
     @Override
     public List<PmsProductImage> getspuImageList(String spuId) {
         PmsProductImage pmsProductImage = new PmsProductImage();
