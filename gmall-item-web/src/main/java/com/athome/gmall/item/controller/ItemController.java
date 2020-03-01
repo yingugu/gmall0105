@@ -2,7 +2,9 @@ package com.athome.gmall.item.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.athome.gmall.bean.PmsProductSaleAttr;
 import com.athome.gmall.bean.PmsSkuInfo;
+import com.athome.gmall.service.PmsProductInfoService;
 import com.athome.gmall.service.SkuService;
 
 
@@ -22,6 +24,8 @@ public class ItemController {
 
     @Reference
     SkuService skuService;
+    @Reference
+    PmsProductInfoService pmsProductInfoService;
     @RequestMapping("index")
     public String index(ModelMap modelMap){
 
@@ -39,8 +43,17 @@ public class ItemController {
     //@PathVariable是spring3.0的一个新功能：接收请求路径中占位符的值
     @RequestMapping("{skuId}.html")
     public String item(@PathVariable String skuId,ModelMap modelMap){
+
+    //sku对象
        PmsSkuInfo pmsSkuInfo= skuService.getSkuById(skuId);
        modelMap.put("skuInfo",pmsSkuInfo);
+       //销售属性列表
+        List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductInfoService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId());
+
+        modelMap.put("spuSaleAttrListCheckBySku",pmsSkuInfo);
+
+
+
         return "item";
     }
 }

@@ -86,4 +86,13 @@ public class PmsProductInfoImpl implements PmsProductInfoService {
         List<PmsProductImage> pmsProductImages = pmsProductImageMapper.select(pmsProductImage);
         return pmsProductImages;
     }
+
+    @Override
+    public List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(String productId) {
+    PmsProductSaleAttr pmsProductSaleAttr = new PmsProductSaleAttr();
+    pmsProductSaleAttr.setProductId(productId);
+
+
+        return null;
+    }
 }
