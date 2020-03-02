@@ -26,34 +26,31 @@ public class ItemController {
     SkuService skuService;
     @Reference
     PmsProductInfoService pmsProductInfoService;
+
     @RequestMapping("index")
-    public String index(ModelMap modelMap){
+    public String index(ModelMap modelMap) {
 
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            list.add("循环数据"+i);
+            list.add("循环数据" + i);
         }
-        modelMap.put("list",list);
-        modelMap.put("hello","hello thymeleaf !!");
-        modelMap.put("check",1);
+        modelMap.put("list", list);
+        modelMap.put("hello", "hello thymeleaf !!");
+        modelMap.put("check", 1);
         return "index";
 
     }
+
     //将请求地址写成和京东类似的以skuId为开头的名字
     //@PathVariable是spring3.0的一个新功能：接收请求路径中占位符的值
     @RequestMapping("{skuId}.html")
-    public String item(@PathVariable String skuId,ModelMap modelMap){
-
-    //sku对象
-       PmsSkuInfo pmsSkuInfo= skuService.getSkuById(skuId);
-       modelMap.put("skuInfo",pmsSkuInfo);
-       //销售属性列表
-        List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductInfoService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId());
-
-        modelMap.put("spuSaleAttrListCheckBySku",pmsSkuInfo);
-
-
-
+    public String item(@PathVariable String skuId, ModelMap modelMap) {
+        //sku对象
+        PmsSkuInfo pmsSkuInfo = skuService.getSkuById(skuId);
+        modelMap.put("skuInfo", pmsSkuInfo);
+        //销售属性列表
+        List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductInfoService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId(),pmsSkuInfo.getId());
+        modelMap.put("spuSaleAttrListCheckBySku", pmsProductSaleAttrList);
         return "item";
     }
 }

@@ -18,7 +18,7 @@ public class PmsProductSaleAttrValue implements Serializable {
 
     @Column
     String saleAttrValueName;
-
+//页面显示是否被选中的临时字段
     @Transient
     String isChecked;
 

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin
 public class Skucontroller {
 
-    @Reference
+    @Reference(timeout = 30000)
     SkuService skuService;
 
     @RequestMapping("saveSkuInfo")
