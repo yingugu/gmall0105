@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @CrossOrigin
 public class SpuController  {
-    @Reference
+    @Reference(timeout = 30000)
     PmsProductInfoService pmsProductInfoService;
     @RequestMapping("spuList")
     @ResponseBody

@@ -2,8 +2,10 @@ package com.athome.gmall.item.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.athome.gmall.bean.PmsProductSaleAttr;
 import com.athome.gmall.bean.PmsSkuInfo;
+import com.athome.gmall.bean.PmsSkuSaleAttrValue;
 import com.athome.gmall.service.PmsProductInfoService;
 import com.athome.gmall.service.SkuService;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -51,6 +54,26 @@ public class ItemController {
         //销售属性列表
         List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductInfoService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId(),pmsSkuInfo.getId());
         modelMap.put("spuSaleAttrListCheckBySku", pmsProductSaleAttrList);
+
+        //查询当前的spu的集合的hash表
+        HashMap<String, String> skuSaleAttrHash = new HashMap<>();
+        List<PmsSkuInfo> pmsSkuInfos = skuService.getSkuSaleAttrValueListBySpu(pmsSkuInfo.getProductId());
+
+        for (PmsSkuInfo skuInfo : pmsSkuInfos) {
+            String k = "";
+            String v = skuInfo.getId();
+            List<PmsSkuSaleAttrValue> skuSaleAttrValues = skuInfo.getSkuSaleAttrValueList();
+
+            for (PmsSkuSaleAttrValue skuSaleAttrValue : skuSaleAttrValues) {
+                k+=skuSaleAttrValue.getSaleAttrId()+"|";//建议使用管道符,使用逗号的话容易被误解成一个数组
+            }
+            skuSaleAttrHash.put(k,v);
+        }
+        //讲sku销售属性的hash表放到页面，不能直接放到域（modelmap里面），因为后面在页面（客户端）取得时候，要保证能直接用，如果直接放在域里面，取出来的是一个Java对象
+        //使用fastjson 和Gson一样
+        String skuSaleAttrHashJSONStr = JSON.toJSONString(skuSaleAttrHash);
+        modelMap.put("skuSaleAttrHashJSONStr",skuSaleAttrHashJSONStr);
+
         return "item";
     }
 }

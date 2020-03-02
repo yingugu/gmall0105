@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.athome.gmall.manage.mapper.SkuMapper">
+    <!--<select id="selectspuSaleAttrListCheckBySku" resultType="com.athome.gmall.bean.PmsProductSaleAttr">-->
+    <!--如果所查询到的集合是一个双层集合，则需要将resultType改为resultMap，不然是无法封装的-->
+
+    <select id="selectSkuSaleAttrValueListBySpu" resultMap="selectSkuSaleAttrValueListBySpuMap">
+
+ SELECT
+            si.*,ssav.*,si.id as si_id ,ssav.id as ssav_id
+        FROM
+            pms_sku_info si,
+            pms_sku_sale_attr_value ssav
+        WHERE
+            si.product_id = #{productId}
+        AND si.id = ssav.sku_id
+    </select>
+    <resultMap id="selectSkuSaleAttrValueListBySpuMap" type="com.athome.gmall.bean.PmsSkuInfo" autoMapping="true">
+        <result column="si_id" property="id"></result>
+        <collection property="skuSaleAttrValueList" ofType="com.athome.gmall.bean.PmsSkuSaleAttrValue"
+                    autoMapping="true">
+            <result column="ssav_id" property="id"></result>
+        </collection>
+
+    </resultMap>
+</mapper>
