@@ -54,7 +54,7 @@ public class ItemController {
         //销售属性列表
         List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductInfoService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId(),pmsSkuInfo.getId());
         modelMap.put("spuSaleAttrListCheckBySku", pmsProductSaleAttrList);
-
+//下面部分可以将所有spu关联的sku也就是hash表，存成js文件，静态化，页面会缓存，降低访问数据库次数
         //查询当前的spu的集合的hash表
         HashMap<String, String> skuSaleAttrHash = new HashMap<>();
         List<PmsSkuInfo> pmsSkuInfos = skuService.getSkuSaleAttrValueListBySpu(pmsSkuInfo.getProductId());
@@ -65,14 +65,14 @@ public class ItemController {
             List<PmsSkuSaleAttrValue> skuSaleAttrValues = skuInfo.getSkuSaleAttrValueList();
 
             for (PmsSkuSaleAttrValue skuSaleAttrValue : skuSaleAttrValues) {
-                k+=skuSaleAttrValue.getSaleAttrId()+"|";//建议使用管道符,使用逗号的话容易被误解成一个数组
+                k+=skuSaleAttrValue.getSaleAttrValueId()+"|";//建议使用管道符,使用逗号的话容易被误解成一个数组
             }
             skuSaleAttrHash.put(k,v);
         }
         //讲sku销售属性的hash表放到页面，不能直接放到域（modelmap里面），因为后面在页面（客户端）取得时候，要保证能直接用，如果直接放在域里面，取出来的是一个Java对象
         //使用fastjson 和Gson一样
         String skuSaleAttrHashJSONStr = JSON.toJSONString(skuSaleAttrHash);
-        modelMap.put("skuSaleAttrHashJSONStr",skuSaleAttrHashJSONStr);
+        modelMap.put("skuSaleAttrHashJsonStr",skuSaleAttrHashJSONStr);
 
         return "item";
     }

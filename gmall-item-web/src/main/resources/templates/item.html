@@ -13,7 +13,7 @@
 		<div id="max">
 		<header>
 		<!--添加隐藏域，就是后端传过来的fastjson的字符串-->
-			<input type="text" th:value="${skuSaleAttrHashJSONStr}" id="valuesSku"/>
+			<input type = "text" th:value="${skuSaleAttrHashJsonStr}" id="valuesSku"/>
 					<div class="min">
 						<ul class="header_ul_left">
 							<li class="glyphicon glyphicon-home"> <a href="shouye.html" class="aa">首页</a></li>
@@ -1053,7 +1053,31 @@
             // }
 
 			var skuSaleAttrValueJsonStr = $("#valuesSku").val();
-			alert(skuSaleAttrValueJsonStr);
+			//alert(skuSaleAttrValueJsonStr);
+			//找到红色边框的（就是被选中的）
+			var saleAttrValueIds = $(".redborder div");
+			var k = "";
+			$(saleAttrValueIds).each(function(i,saleAttrValueId){
+				//alert($(saleAttrValueId).attr("value"));
+				k = k+ $(saleAttrValueId).attr("value")+"|";
+			});
+			//alert(k);
+			//将字符串转化为json
+			var skuSaleAttrValueJson = JSON.parse(skuSaleAttrValueJsonStr);
+			var v_skuId = skuSaleAttrValueJson[k];
+			var skuIdSelf=$("#skuId").val();
+			//alert(v_skuId);
+
+			if (v_skuId){
+				if (v_skuId=skuIdSelf){
+					$("#cartBtn").attr("class","box-btns-two");
+				}else {
+					window.location.href="/"+v_skuId+".html";
+				}
+
+			}else{
+				     $("#cartBtn").attr("class","box-btns-two-off");
+				 }
 
         }
 	</script>
