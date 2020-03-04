@@ -16,8 +16,18 @@ public class GmallManageServiceApplicationTests {
 
     @Test
     public void contextLoads() {
-        Jedis jedis = redisUtil.getJedis();
-        System.out.println(jedis);
+//        Jedis jedis = redisUtil.getJedis();
+//        System.out.println(jedis);
+
+        System.out.println("线程开始运行"+Thread.currentThread().getName());
+        try {
+            Thread.sleep(3000);
+            System.out.println("睡醒了"+Thread.currentThread().getName());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("过去了"+Thread.currentThread().getName());
+        contextLoads();
     }
 
 }

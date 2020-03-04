@@ -84,19 +84,39 @@ public class SkuServiceImpl implements SkuService {
         //查询缓存
         String skuKey = "sku:" + skuId + ":info";
         String skuJson = jedis.get(skuKey);
+        System.out.println("skuJson"+Thread.currentThread().getName());
         if (StringUtils.isNotEmpty(skuJson)) {
             pmsSkuInfo = JSON.parseObject(skuJson, PmsSkuInfo.class);
         } else {
             //如果缓存中没有，查询mysql
-            pmsSkuInfo = getSkuByIdFromDb(skuId);
-            //mysql查询结果存入redis
-            if (pmsSkuInfo != null) {
-                jedis.set(skuKey, JSON.toJSONString(pmsSkuInfo));
-            } else {
-                //s数据库中不存在该sku，为了防止缓存穿透  将null或者空字符串设置给redis,并设置一个较短过期时间
-                jedis.setex("sku:" + skuId + ":info", 60 * 3, JSON.toJSONString(""));
 
+            //设置分布式锁
+            String OK = jedis.set("sku:"+skuId+":lock","1","nx","px",100000);
+            if (StringUtils.isNotEmpty(OK)&&OK.equals("OK")){
+                System.out.println("OK"+Thread.currentThread().getName());
+                //设置成功，有权在十秒的过期时间内访问数据库
+                pmsSkuInfo = getSkuByIdFromDb(skuId);
+                if (pmsSkuInfo != null) {
+                    //mysql查询结果存入redis
+                    jedis.set(skuKey, JSON.toJSONString(pmsSkuInfo));
+                } else {
+                    //s数据库中不存在该sku，为了防止缓存穿透  将null或者空字符串设置给redis,并设置一个较短过期时间
+                    jedis.setex("sku:" + skuId + ":info", 60 * 3, JSON.toJSONString(""));
+
+                }
+            }else{
+                //设置失败
+                try {
+                    Thread.sleep(3000);
+                    System.out.println("sleep"+Thread.currentThread().getName());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                getSkuById(skuId);
+                System.out.println("new"+Thread.currentThread().getName());
             }
+
+
         }
         jedis.close();
         return pmsSkuInfo;
