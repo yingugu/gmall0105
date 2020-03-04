@@ -54,7 +54,7 @@ public class ItemController {
         //销售属性列表
         List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductInfoService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId(),pmsSkuInfo.getId());
         modelMap.put("spuSaleAttrListCheckBySku", pmsProductSaleAttrList);
-//下面部分可以将所有spu关联的sku也就是hash表，存成js文件，静态化，页面会缓存，降低访问数据库次数
+        //下面部分可以将所有spu关联的sku也就是hash表，存成js文件，静态化，页面会缓存，降低访问数据库次数
         //查询当前的spu的集合的hash表
         HashMap<String, String> skuSaleAttrHash = new HashMap<>();
         List<PmsSkuInfo> pmsSkuInfos = skuService.getSkuSaleAttrValueListBySpu(pmsSkuInfo.getProductId());

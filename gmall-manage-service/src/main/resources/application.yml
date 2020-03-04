@@ -19,7 +19,7 @@ spring:
     #dubbo的服务的扫描路径
     base-package: com.athome.gmall
   redis:
-    host: 106.13.34.196
+    host: 115.28.131.8
     database: 0
     port: 6379
 mybatis:

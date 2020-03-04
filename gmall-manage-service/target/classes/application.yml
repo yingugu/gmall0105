@@ -18,6 +18,10 @@ spring:
       name: dubbo
     #dubbo的服务的扫描路径
     base-package: com.athome.gmall
+  redis:
+    host: 115.28.131.8
+    database: 0
+    port: 6379
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   configuration:
