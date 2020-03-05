@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,9 +48,14 @@ public class ItemController {
     //将请求地址写成和京东类似的以skuId为开头的名字
     //@PathVariable是spring3.0的一个新功能：接收请求路径中占位符的值
     @RequestMapping("{skuId}.html")
-    public String item(@PathVariable String skuId, ModelMap modelMap) {
+    public String item(@PathVariable String skuId, ModelMap modelMap, HttpServletRequest request) {
+        //拿IP
+        String remoteAddr = request.getRemoteAddr();//直接从请求中获取ip
+        //另一个方式
+        //String header = request.getHeader("");//使用NGINX负载均衡之后，如果用上面的方法，获得的是NGINX的IP
+
         //sku对象
-        PmsSkuInfo pmsSkuInfo = skuService.getSkuById(skuId);
+        PmsSkuInfo pmsSkuInfo = skuService.getSkuById(skuId,remoteAddr);
         modelMap.put("skuInfo", pmsSkuInfo);
         //销售属性列表
         List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductInfoService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId(),pmsSkuInfo.getId());

@@ -1,0 +1,26 @@
+server:
+  port: 8082
+spring:
+  datasource:
+    url: jdbc:mysql://rm-bp1hpz0x52f7x324gwo.mysql.rds.aliyuncs.com:3306/gmall_study?characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: P@ssw0rd
+  dubbo:
+    application:
+      name: redisson-test
+    registry:
+      address: 115.28.131.8:2181
+      protocol: zookeeper
+    protocol:
+      name: dubbo
+    base-package: com.athome.gmall
+  redis:
+    host: 115.28.131.8
+    port: 6379
+    database: 0
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level: debug
