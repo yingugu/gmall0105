@@ -28,19 +28,30 @@ public class RedissonController {
 
     @RequestMapping("testRedisson")
     public String testRedisson(HttpServletRequest request) {
+        RLock lock = redissonClient.getLock("anyLock");
+
+
 
         String IP = request.getRemoteAddr();
-        RLock lock = redissonClient.getLock("anyLock");
         Jedis jedis = redisUtil.getJedis();
+        lock.lock();
+        try {
 
-        String v = jedis.get("k");
-        if (StringUtils.isBlank(v)) {
-            v = "1";
 
+            String v = jedis.get("k");
+            if (StringUtils.isBlank(v)) {
+                v = "1";
+
+            }
+            System.out.println(v+"ip:"+IP);
+            jedis.set("k", (Integer.parseInt(v) + 1) + "");
+            jedis.close();
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }finally {
+
+            lock.unlock();
         }
-        System.out.println(v+"ip:"+IP);
-        jedis.set("k", (Integer.parseInt(v) + 1) + "");
-        jedis.close();
 
         //lock.lock();
 
