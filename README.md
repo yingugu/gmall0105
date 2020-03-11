@@ -15,3 +15,7 @@
 gmall-item-service 前台商品详情的服务 8082  因为商品详情实际就是spu和sku  所以不必重复写，可以直接用后台中的
 
 gmall-item-web前台商品详情展示  8082 
+
+
+gmall-search-web:8083
+gmall-search-service:8074

@@ -1,0 +1,38 @@
+server:
+  port: 8074
+  connection-timeout: 20000
+spring:
+  datasource:
+    password: P@ssw0rd
+    username: root
+    url: jdbc:mysql://rm-bp1hpz0x52f7x324gwo.mysql.rds.aliyuncs.com:3306/gmall_study?characterEncoding=UTF-8&useSSL=false
+  #dubbo的配置
+  dubbo:
+    #dubbo的服务名称
+    application: search-service
+    #dubbo的服务中心地址
+    registry:
+      address: 115.28.131.8:2181
+      #zookeeper的通讯协议的名称
+      protocol: zookeeper
+    #dubbo的通讯协议名称
+    protocol:
+      name: dubbo
+    #dubbo的服务的扫描路径
+    base-package: com.athome.gmall
+  elasticsearch:
+    jest:
+      uris: http://106.13.34.196:9200/
+
+  mvc:
+    async:
+      request-timeout: 20000
+  data.elasticsearch.propertirs.transport.tcp.connect_timeout: 120s
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    root: info
