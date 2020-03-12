@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @ResponseBody
+
 public class RedissonController {
     @Autowired
     GmallRedissonConfig gmallRedissonConfig;
@@ -25,6 +26,12 @@ public class RedissonController {
     RedissonClient redissonClient;
     @Autowired
     RedisUtil redisUtil;
+
+    @RequestMapping("testhahaha")
+    public String testtest(){
+        return "hahahaha";
+
+    }
 
     @RequestMapping("testRedisson")
     public String testRedisson(HttpServletRequest request) {
