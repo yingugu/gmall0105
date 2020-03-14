@@ -6,8 +6,8 @@ import com.alibaba.fastjson.JSON;
 import com.athome.gmall.bean.PmsProductSaleAttr;
 import com.athome.gmall.bean.PmsSkuInfo;
 import com.athome.gmall.bean.PmsSkuSaleAttrValue;
-import com.athome.gmall.service.PmsProductInfoService;
-import com.athome.gmall.service.SkuService;
+import com.athome.gmall.search.service.PmsProductInfoService;
+import com.athome.gmall.search.service.SkuService;
 
 
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
