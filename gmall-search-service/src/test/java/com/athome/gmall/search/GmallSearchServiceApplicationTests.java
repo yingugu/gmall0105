@@ -9,6 +9,10 @@ import io.searchbox.core.Index;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import org.apache.commons.collections.list.PredicatedList;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeanUtils;
@@ -33,29 +37,62 @@ public class GmallSearchServiceApplicationTests {
     public void contextLoads() throws Exception {
     //用api执行复杂查询
         List<PmsSearchSkuInfo> pmsSearchSkuInfos = new ArrayList<>();
-        Search search = new Search.Builder("{\n" +
-                "  \"query\": {\n" +
-                "    \"bool\": {\n" +
-                "      \"filter\": {\n" +
-                "        \"terms\": {\n" +
-                "          \"skuAttrValueList.skuId\": [\n" +
-                "            \"120\",\n" +
-                "            \"121\"\n" +
-                "          ]\n" +
-                "        }\n" +
-                "        \n" +
-                "      },\n" +
-                "      \"must\": [\n" +
-                "        {\"match\": {\n" +
-                "          \"skuName\": \"测试\"\n" +
-                "        }}\n" +
-                "      ]\n" +
-                "      \n" +
-                "    }\n" +
-                "    \n" +
-                "  }\n" +
-                "  \n" +
-                "}").addIndex("gmall0105").addType("PmsSkuInfo").build();
+
+
+        //jest的dsl工具
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+        //bool
+
+        BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
+
+        //filter
+//filter中加的是term，term的两个参数分别为筛选的字段名和字段值
+        TermQueryBuilder termQueryBuilder = new TermQueryBuilder("skuAttrValueList.skuId","120");
+        boolQueryBuilder.filter(termQueryBuilder);
+
+
+
+        //must
+        //must中加的是match,两个参数是字段名和关键字
+        MatchQueryBuilder matchQueryBuilder = new MatchQueryBuilder("skuName","测试");
+        boolQueryBuilder.must(matchQueryBuilder);
+
+        //query
+        searchSourceBuilder.query(boolQueryBuilder);
+        //highlight
+        //from
+        //size
+
+//生成dsl语句
+        String dslStr = searchSourceBuilder.toString();
+
+//        Search search = new Search.Builder("{\n" +
+//                "  \"query\": {\n" +
+//                "    \"bool\": {\n" +
+//                "      \"filter\": {\n" +
+//                "        \"terms\": {\n" +
+//                "          \"skuAttrValueList.skuId\": [\n" +
+//                "            \"120\",\n" +
+//                "            \"121\"\n" +
+//                "          ]\n" +
+//                "        }\n" +
+//                "        \n" +
+//                "      },\n" +
+//                "      \"must\": [\n" +
+//                "        {\"match\": {\n" +
+//                "          \"skuName\": \"测试\"\n" +
+//                "        }}\n" +
+//                "      ]\n" +
+//                "      \n" +
+//                "    }\n" +
+//                "    \n" +
+//                "  }\n" +
+//                "  \n" +
+//                "}").addIndex("gmall0105").addType("PmsSkuInfo").build();
+//上面的内容相当于：
+        System.out.println(dslStr);
+        Search search = new Search.Builder(dslStr).addIndex("gmall0105").addType("PmsSkuInfo").build();
         SearchResult searchResult = jestClient.execute(search);
 
         List<SearchResult.Hit<PmsSearchSkuInfo, Void>> hits = searchResult.getHits(PmsSearchSkuInfo.class);
@@ -82,11 +119,12 @@ public class GmallSearchServiceApplicationTests {
         for (PmsSkuInfo pmsSkuInfo : pmsSkuInfoList) {
             PmsSearchSkuInfo pmsSearchSkuInfo = new PmsSearchSkuInfo();
             BeanUtils.copyProperties(pmsSkuInfo, pmsSearchSkuInfo);
+            pmsSearchSkuInfo.setId(Long.parseLong(pmsSkuInfo.getId()));
             pmsSearchSkuInfoList.add(pmsSearchSkuInfo);
         }
         for (PmsSearchSkuInfo pmsSearchSkuInfo : pmsSearchSkuInfoList) {
             //导入es
-            Index put = new Index.Builder(pmsSearchSkuInfo).index("gmall0105").type("PmsSkuInfo").id(pmsSearchSkuInfo.getId()).build();
+            Index put = new Index.Builder(pmsSearchSkuInfo).index("gmall0105").type("PmsSkuInfo").id(pmsSearchSkuInfo.getId()+"").build();
             // System.out.println(Thread.currentThread().getName());
             //Builder中source倒入的數據，最後會被轉換成json，後面的index是庫名，type中是表名，id中是主鍵
             jestClient.execute(put);

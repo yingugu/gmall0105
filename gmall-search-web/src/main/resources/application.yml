@@ -1,0 +1,19 @@
+server:
+  port: 8083
+logging:
+  level: debug
+spring:
+  dubbo:
+    application: search-web
+    registry:
+      protocol: zookeeper
+      address: 115.28.131.8:2181
+    protocol:
+      name: dubbo
+    base-package: com.athome.gmall
+    consumer:
+      check: false
+      timeout: 60000
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
