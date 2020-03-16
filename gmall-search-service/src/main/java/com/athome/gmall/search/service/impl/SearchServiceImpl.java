@@ -14,6 +14,8 @@ import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
 import org.elasticsearch.index.query.TemplateQueryBuilder;
 import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsBuilder;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortOrder;
@@ -53,8 +55,11 @@ public class SearchServiceImpl implements SearchService {
             //将结果中的高亮字段取出，因为高亮和查询结果是一个层级的，不会解析到，所以要讲值取出后再赋值
 
             Map<String, List<String>> highlight = hit.highlight;
+            if (highlight!=null){
+
             String skuName = highlight.get("skuName").get(0);
             source.setSkuName(skuName);
+            }
             pmsSearchSkuInfos.add(source);
         }
 
@@ -115,6 +120,11 @@ public class SearchServiceImpl implements SearchService {
         //size
         searchSourceBuilder.size(20);
         String dslStr = searchSourceBuilder.toString();
+//        //aggs,因为es的聚合函数有点浪费性能，所以不用这种方式（因为会将所有查询结果做一次统计，损耗查询性能）
+//        TermsBuilder groupby_attr = AggregationBuilders.terms("name").field("skuAttrValueList.valueId");
+//        searchSourceBuilder.aggregation(groupby_attr);
+
+
         return dslStr;
 
     }
