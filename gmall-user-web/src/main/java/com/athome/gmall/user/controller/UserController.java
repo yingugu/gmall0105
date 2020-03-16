@@ -3,9 +3,7 @@ package com.athome.gmall.user.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.athome.gmall.bean.UmsMember;
 import com.athome.gmall.bean.UmsMemberReceiveAddress;
-import com.athome.gmall.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.athome.gmall.search.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
