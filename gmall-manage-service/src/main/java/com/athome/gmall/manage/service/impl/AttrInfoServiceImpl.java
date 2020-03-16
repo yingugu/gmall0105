@@ -8,7 +8,7 @@ import com.athome.gmall.bean.PmsBaseSaleAttr;
 import com.athome.gmall.manage.mapper.PmsBaseAttrInfoMapper;
 import com.athome.gmall.manage.mapper.PmsBaseAttrValueMapper;
 import com.athome.gmall.manage.mapper.PmsBaseSaleAttrMapper;
-import com.athome.gmall.search.service.AttrInfoService;
+import com.athome.gmall.service.AttrInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 

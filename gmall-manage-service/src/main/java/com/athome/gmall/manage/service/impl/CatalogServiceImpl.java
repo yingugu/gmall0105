@@ -7,7 +7,7 @@ import com.athome.gmall.bean.PmsBaseCatalog3;
 import com.athome.gmall.manage.mapper.PmsBaseCatalog1Mapper;
 import com.athome.gmall.manage.mapper.PmsBaseCatalog2Mapper;
 import com.athome.gmall.manage.mapper.PmsBaseCatalog3Mapper;
-import com.athome.gmall.search.service.CatalogService;
+import com.athome.gmall.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

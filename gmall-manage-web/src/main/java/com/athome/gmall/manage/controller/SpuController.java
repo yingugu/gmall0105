@@ -5,7 +5,7 @@ import com.athome.gmall.bean.PmsProductImage;
 import com.athome.gmall.bean.PmsProductInfo;
 import com.athome.gmall.bean.PmsProductSaleAttr;
 import com.athome.gmall.manage.util.PmsUploadUtil;
-import com.athome.gmall.search.service.PmsProductInfoService;
+import com.athome.gmall.service.PmsProductInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

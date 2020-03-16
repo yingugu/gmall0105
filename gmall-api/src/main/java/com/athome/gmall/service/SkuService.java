@@ -1,4 +1,4 @@
-package com.athome.gmall.search.service;
+package com.athome.gmall.service;
 
 import com.athome.gmall.bean.PmsSkuInfo;
 

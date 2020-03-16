@@ -6,8 +6,8 @@ import com.alibaba.fastjson.JSON;
 import com.athome.gmall.bean.PmsProductSaleAttr;
 import com.athome.gmall.bean.PmsSkuInfo;
 import com.athome.gmall.bean.PmsSkuSaleAttrValue;
-import com.athome.gmall.search.service.PmsProductInfoService;
-import com.athome.gmall.search.service.SkuService;
+import com.athome.gmall.service.PmsProductInfoService;
+import com.athome.gmall.service.SkuService;
 
 
 import org.springframework.stereotype.Controller;

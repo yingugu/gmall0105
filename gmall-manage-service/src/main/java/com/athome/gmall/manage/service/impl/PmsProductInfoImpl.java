@@ -10,7 +10,7 @@ import com.athome.gmall.manage.mapper.PmsProductImageMapper;
 import com.athome.gmall.manage.mapper.PmsProductInfoMapper;
 import com.athome.gmall.manage.mapper.PmsProductSaleAttrMapper;
 import com.athome.gmall.manage.mapper.PmsProductSaleAttrValueMapper;
-import com.athome.gmall.search.service.PmsProductInfoService;
+import com.athome.gmall.service.PmsProductInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

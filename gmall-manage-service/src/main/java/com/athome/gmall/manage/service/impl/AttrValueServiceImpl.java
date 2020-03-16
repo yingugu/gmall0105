@@ -3,7 +3,7 @@ package com.athome.gmall.manage.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.athome.gmall.bean.PmsBaseAttrValue;
 import com.athome.gmall.manage.mapper.PmsBaseAttrValueMapper;
-import com.athome.gmall.search.service.AttrValueService;
+import com.athome.gmall.service.AttrValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

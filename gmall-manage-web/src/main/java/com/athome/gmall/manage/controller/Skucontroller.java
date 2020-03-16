@@ -3,7 +3,7 @@ package com.athome.gmall.manage.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 
 import com.athome.gmall.bean.PmsSkuInfo;
-import com.athome.gmall.search.service.SkuService;
+import com.athome.gmall.service.SkuService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;

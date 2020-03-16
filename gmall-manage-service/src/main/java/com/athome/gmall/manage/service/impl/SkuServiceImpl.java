@@ -11,7 +11,7 @@ import com.athome.gmall.manage.mapper.SkuAttrValueMapper;
 import com.athome.gmall.manage.mapper.SkuImageMapper;
 import com.athome.gmall.manage.mapper.SkuMapper;
 import com.athome.gmall.manage.mapper.SkuSaleAttrValueMapper;
-import com.athome.gmall.search.service.SkuService;
+import com.athome.gmall.service.SkuService;
 import com.athome.gmall.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
