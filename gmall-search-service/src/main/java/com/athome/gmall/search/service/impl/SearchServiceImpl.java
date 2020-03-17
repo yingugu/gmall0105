@@ -125,6 +125,7 @@ public class SearchServiceImpl implements SearchService {
 //        searchSourceBuilder.aggregation(groupby_attr);
 
 
+
         return dslStr;
 
     }

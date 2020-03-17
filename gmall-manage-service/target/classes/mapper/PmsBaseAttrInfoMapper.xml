@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.athome.gmall.manage.mapper.PmsBaseAttrInfoMapper">
+    <!--<select id="selectspuSaleAttrListCheckBySku" resultType="com.athome.gmall.bean.PmsProductSaleAttr">-->
+    <!--如果所查询到的集合是一个双层集合，则需要将resultType改为resultMap，不然是无法封装的-->
+<!--$符用来拼接sql字符串，#用来赋值-->
+    <select id="selectAttrValueListByValueId" resultMap="selectAttrValueListByValueIdMap">
+select ba.*,bv.*,ba.id as ba_id,bv.id as bv_id from pms_base_attr_info ba,pms_base_attr_value bv where ba.id = bv.attr_id and bv.id in (${valueIdStr})
+
+
+    </select>
+    <resultMap id="selectAttrValueListByValueIdMap" type="com.athome.gmall.bean.PmsBaseAttrInfo" autoMapping="true">
+        <result column="ba_id" property="id"></result>
+        <collection property="attrValueList" ofType="com.athome.gmall.bean.PmsBaseAttrValue"
+                    autoMapping="true">
+            <result column="bv_id" property="id"></result>
+        </collection>
+
+    </resultMap>
+</mapper>
