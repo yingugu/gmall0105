@@ -16,6 +16,11 @@ gmall-item-service 前台商品详情的服务 8082  因为商品详情实际就
 
 gmall-item-web前台商品详情展示  8082 
 
-
+# 搜索服务
 gmall-search-web:8083
 gmall-search-service:8074
+# 购物车
+gmall-cart-web:8084
+gmall-cart-service:8074
+
+

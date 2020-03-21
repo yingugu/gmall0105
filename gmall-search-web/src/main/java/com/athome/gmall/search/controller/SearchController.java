@@ -48,27 +48,29 @@ public class SearchController {
 
         String[] delValueIds = pmsSearchParam.getValueId();
 
-        if (delValueIds!=null){
+        if (delValueIds != null) {
             //面包屑
 //因为此处循环与下面面包屑基本一致，所以将面包屑合并到此
+            //删除平台属性，同时也是制作被删的这个面包屑的时间
             List<PmsSearchCrumb> pmsSearchCrumbs = new ArrayList<>();
-            Iterator<PmsBaseAttrInfo> iterator = pmsBaseAttrInfos.iterator();
-            for (String delValueId: delValueIds) {
+            for (String delValueId : delValueIds) {
+                //迭代器要放在这就是循环内，因为迭代器在迭代结束之后，不会重新迭代  要重新new
+                Iterator<PmsBaseAttrInfo> iterator = pmsBaseAttrInfos.iterator();
                 PmsSearchCrumb pmsSearchCrumb = new PmsSearchCrumb();
                 //生成面包屑的参数
                 pmsSearchCrumb.setValueId(delValueId);
                 //这个name应该放在最内层循环，循环之后拿到的
                 //pmsSearchCrumb.setValueName(attrName);
-                pmsSearchCrumb.setUrlParam(getUrlParamForCrumb(pmsSearchParam,delValueId));
-                String attrName="";
-            while(iterator.hasNext()){
-                PmsBaseAttrInfo pmsBaseAttrInfo = iterator.next();
-                List<PmsBaseAttrValue> attrValueList = pmsBaseAttrInfo.getAttrValueList();
-                for (PmsBaseAttrValue pmsBaseAttrValue : attrValueList) {
+                pmsSearchCrumb.setUrlParam(getUrlParamForCrumb(pmsSearchParam, delValueId));
+                String attrName = "";
+                while (iterator.hasNext()) {
+                    PmsBaseAttrInfo pmsBaseAttrInfo = iterator.next();
+                    List<PmsBaseAttrValue> attrValueList = pmsBaseAttrInfo.getAttrValueList();
+                    for (PmsBaseAttrValue pmsBaseAttrValue : attrValueList) {
 
-                    String valueId = pmsBaseAttrValue.getId();
+                        String valueId = pmsBaseAttrValue.getId();
 
-                        if (delValueId.equals(valueId)){
+                        if (delValueId.equals(valueId)) {
                             attrName = pmsBaseAttrValue.getValueName();
                             pmsSearchCrumb.setValueName(attrName);
                             iterator.remove();
@@ -78,15 +80,15 @@ public class SearchController {
 
                 pmsSearchCrumbs.add(pmsSearchCrumb);
             }
-            modelMap.put("attrValueSelectedList",pmsSearchCrumbs);
+            modelMap.put("attrValueSelectedList", pmsSearchCrumbs);
         }
 
         modelMap.put("urlParam", urlParam);
 
         String keyword = pmsSearchParam.getKeyword();
-        if (StringUtils.isNotEmpty(keyword)){
+        if (StringUtils.isNotEmpty(keyword)) {
 
-        modelMap.put("keyword",keyword);
+            modelMap.put("keyword", keyword);
 
         }
 
@@ -109,57 +111,56 @@ public class SearchController {
 //        }
 
 
-
-
         return "list";
     }
 
-    private String getUrlParam(PmsSearchParam pmsSearchParam,String ...delValueId) {
+    private String getUrlParam(PmsSearchParam pmsSearchParam, String... delValueId) {
         String keyword = pmsSearchParam.getKeyword();
         String catalog3Id = pmsSearchParam.getCatalog3Id();
         String[] skuAttrValueList = pmsSearchParam.getValueId();
         String urlParam = "";
         if (StringUtils.isNotEmpty(keyword)) {
-            if (StringUtils.isNotEmpty(urlParam)){
-                urlParam = urlParam+"&keyword="+keyword;
+            if (StringUtils.isNotEmpty(urlParam)) {
+                urlParam = urlParam + "&keyword=" + keyword;
             }
-            urlParam = urlParam+"keyword="+keyword;
+            urlParam = urlParam + "keyword=" + keyword;
         }
 
         if (StringUtils.isNotEmpty(catalog3Id)) {
-            if (StringUtils.isNotEmpty(urlParam)){
-                urlParam = urlParam+"&catalog3Id="+catalog3Id;
+            if (StringUtils.isNotEmpty(urlParam)) {
+                urlParam = urlParam + "&catalog3Id=" + catalog3Id;
             }
-            urlParam = urlParam+"catalog3Id="+catalog3Id;
+            urlParam = urlParam + "catalog3Id=" + catalog3Id;
         }
-        if (skuAttrValueList!=null){
+        if (skuAttrValueList != null) {
 
             for (String pmsSkuAttrValue : skuAttrValueList) {
                 String valueId = pmsSkuAttrValue;
-                    urlParam = urlParam + "&valueId=" + valueId;
+                urlParam = urlParam + "&valueId=" + valueId;
             }
         }
         return urlParam;
     }
-    private String getUrlParamForCrumb(PmsSearchParam pmsSearchParam,String delValueId) {
+
+    private String getUrlParamForCrumb(PmsSearchParam pmsSearchParam, String delValueId) {
         String keyword = pmsSearchParam.getKeyword();
         String catalog3Id = pmsSearchParam.getCatalog3Id();
         String[] skuAttrValueList = pmsSearchParam.getValueId();
         String urlParam = "";
         if (StringUtils.isNotEmpty(keyword)) {
-            if (StringUtils.isNotEmpty(urlParam)){
-                urlParam = urlParam+"&keyword="+keyword;
+            if (StringUtils.isNotEmpty(urlParam)) {
+                urlParam = urlParam + "&keyword=" + keyword;
             }
-            urlParam = urlParam+"keyword="+keyword;
+            urlParam = urlParam + "keyword=" + keyword;
         }
 
         if (StringUtils.isNotEmpty(catalog3Id)) {
-            if (StringUtils.isNotEmpty(urlParam)){
-                urlParam = urlParam+"catalog3Id="+catalog3Id;
+            if (StringUtils.isNotEmpty(urlParam)) {
+                urlParam = urlParam + "catalog3Id=" + catalog3Id;
             }
-            urlParam = urlParam+"&catalog3Id="+catalog3Id;
+            urlParam = urlParam + "&catalog3Id=" + catalog3Id;
         }
-        if (skuAttrValueList!=null){
+        if (skuAttrValueList != null) {
 
             for (String pmsSkuAttrValue : skuAttrValueList) {
                 String valueId = pmsSkuAttrValue;

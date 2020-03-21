@@ -17,7 +17,7 @@ public class PmsUploadUtil {
             byte[] bytes = multipartFile.getBytes();//获得上传的二进制对象
             //获得文件后缀名
             String originalFilename = multipartFile.getOriginalFilename();//获取文件全名
-            int l = originalFilename.lastIndexOf(".");
+            int l = originalFilename.lastIndexOf(".");//找到最后一个"."
             String extName = originalFilename.substring(l + 1);
             String file = PmsUploadUtil.class.getResource("/tracker.conf").getFile();
             ClientGlobal.init(file);

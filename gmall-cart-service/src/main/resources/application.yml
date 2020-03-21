@@ -1,0 +1,35 @@
+#jdbc
+spring:
+  datasource:
+    password: P@ssw0rd
+    username: root
+    url: jdbc:mysql://rm-bp1hpz0x52f7x324gwo.mysql.rds.aliyuncs.com:3306/gmall_study?characterEncoding=UTF-8&useSSL=false
+  #dubbo的配置
+  dubbo:
+    #dubbo的服务名称
+    application: manage-service
+    #dubbo的服务中心地址
+    registry:
+      address: 115.28.131.8:2181
+      #zookeeper的通讯协议的名称
+      protocol: zookeeper
+    #dubbo的通讯协议名称
+    protocol:
+      name: dubbo
+    #dubbo的服务的扫描路径
+    base-package: com.athome.gmall
+  redis:
+    host: 115.28.131.8
+    database: 0
+    port: 6379
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+server:
+  port: 8074
+# 日志级别设置
+logging:
+  level:
+    root: info
+
