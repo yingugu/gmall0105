@@ -1,10 +1,10 @@
-package com.athomegmall.cart;
+package com.athome.gmall.util;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GmallCartWebApplicationTests {
+class GmallWebUtilApplicationTests {
 
     @Test
     void contextLoads() {

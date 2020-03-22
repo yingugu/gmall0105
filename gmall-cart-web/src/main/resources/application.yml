@@ -7,7 +7,7 @@ logging:
 spring:
   dubbo:
     #dubbo中的服务名称
-    application: item-web
+    application: cart-web
     #dubbo的通讯协议名称
     protocol:
       name: dubboo

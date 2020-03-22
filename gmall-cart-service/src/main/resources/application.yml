@@ -7,7 +7,7 @@ spring:
   #dubbo的配置
   dubbo:
     #dubbo的服务名称
-    application: manage-service
+    application: cart-service
     #dubbo的服务中心地址
     registry:
       address: 115.28.131.8:2181
