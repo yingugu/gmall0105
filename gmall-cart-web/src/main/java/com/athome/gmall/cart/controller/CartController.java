@@ -145,6 +145,7 @@ public class CartController {
         return "redirect:/success.html";
     }
 
+
     @RequestMapping("cartList")
     public String cartList(ModelMap modelMap,HttpServletRequest request,HttpServletResponse response) {
         List<OmsCartItem> omsCartItems = new ArrayList<>();
@@ -202,6 +203,12 @@ public class CartController {
         modelMap.put("cartList",omsCartItems);
 
         return "cartListInnner";
+    }
+
+    @RequestMapping("toTrade")
+    public String toTrade (HttpServletResponse response,HttpServletRequest request,ModelMap modelMap){
+
+        return "toTrade";
     }
     private boolean if_cart_exist(List<OmsCartItem> omsCartItems, OmsCartItem omsCartItem) {
         boolean b = false;
