@@ -3,6 +3,7 @@ package com.athome.gmall.cart.controller;
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.athome.gmall.annotations.LoginRequired;
 import com.athome.gmall.bean.OmsCartItem;
 import com.athome.gmall.bean.PmsSkuInfo;
 import com.athome.gmall.service.CartService;
@@ -184,6 +185,7 @@ public class CartController {
     }
 
     @RequestMapping("checkCart")
+    @LoginRequired(loginSuccess = false)
     public String checkCart(String isChecked, String skuId, HttpServletResponse response, HttpServletRequest request, HttpSession session,ModelMap modelMap){
         String memberId = "1";
 
@@ -206,6 +208,7 @@ public class CartController {
     }
 
     @RequestMapping("toTrade")
+    @LoginRequired(loginSuccess = true)
     public String toTrade (HttpServletResponse response,HttpServletRequest request,ModelMap modelMap){
 
         return "toTrade";
