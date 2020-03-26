@@ -24,17 +24,22 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         //通过反射的方法，反射是通过类对象或类名获得类的整体信息的过程
         LoginRequired methodAnnotation = hm.getMethodAnnotation(LoginRequired.class);
 
-
-        if (methodAnnotation == null){
+//判断是否进行拦截
+        if (methodAnnotation == null) {
             return true;
-        }else{
+        } else {
             //进入拦截器的拦截方法
             //方法应该分为三种，第一类是不需要拦截的（没有加注解）
 
             //第二类是需要拦截，但是校验失败也可以继续访问的方法（没有登录或者登录过期了，比如购物车中的方法）loginRequired(false)
+           //是否必须登录
             boolean b = methodAnnotation.loginSuccess();//获得该请求是否必须登录成功
-            //第三类是需要拦截，且拦截一定要通过（用户登录成功了才能访问）loginRequired(true)
+            if (b) {
+                //必须登录成功才能使用
 
+
+            }
+            //第三类是需要拦截，且拦截一定要通过（用户登录成功了才能访问）loginRequired(true)
 
 
         }
