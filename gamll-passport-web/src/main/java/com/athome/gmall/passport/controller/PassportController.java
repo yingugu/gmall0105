@@ -8,6 +8,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PassportController {
+
+    @RequestMapping("verify")
+    public String verify(String token){
+
+        //通过jwt校验真假
+        return  "success";
+    }
+
     @RequestMapping("index")
     public String index(String ReturnUrl, ModelMap modelMap){
         modelMap.put("ReturnUrl",ReturnUrl);

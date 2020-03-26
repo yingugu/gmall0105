@@ -58,7 +58,8 @@ public class CartController {
         omsCartItem.setQuantity(quantity);
 
         //判断用户是否登录
-        String memberId = "1";
+        String memberId = "1";//request.getAttribute("memberId");
+
         //根据用户登录状态决定走cookie分支还是db
         //购物车数据进行写入
         if (StringUtils.isBlank(memberId)) {
@@ -211,6 +212,8 @@ public class CartController {
     @LoginRequired(loginSuccess = true)
     public String toTrade (HttpServletResponse response,HttpServletRequest request,ModelMap modelMap){
 
+        String memberId = (String) request.getAttribute("memberId");//这里不能用toString方法，防止null.toString报空指针异常
+        String nikeName = (String) request.getAttribute("nikeName");
         return "toTrade";
     }
     private boolean if_cart_exist(List<OmsCartItem> omsCartItems, OmsCartItem omsCartItem) {
