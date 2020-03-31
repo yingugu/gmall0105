@@ -25,6 +25,8 @@ public class HttpclientUtil {
         HttpGet httpGet = new HttpGet(url);
         CloseableHttpResponse response = null;
         try {
+
+
             // 执行请求
             response = httpclient.execute(httpGet);
             // 判断返回状态是否为200
@@ -52,13 +54,18 @@ public class HttpclientUtil {
         HttpPost httpPost = new HttpPost(url);
         CloseableHttpResponse response = null;
         try {
-            List<BasicNameValuePair> list=new ArrayList<>();
-            for (Map.Entry<String, String> entry : paramMap.entrySet()) {
-                list.add(new BasicNameValuePair(entry.getKey(),entry.getValue())) ;
-            }
-            HttpEntity httpEntity=new UrlEncodedFormEntity(list,"utf-8");
+           // if (paramMap!=null){
+                List<BasicNameValuePair> list=new ArrayList<>();
+                for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+                    list.add(new BasicNameValuePair(entry.getKey(),entry.getValue())) ;
+                }
+                HttpEntity httpEntity=new UrlEncodedFormEntity(list,"utf-8");
 
-            httpPost.setEntity(httpEntity);
+                httpPost.setEntity(httpEntity);
+
+           // }
+
+
             // 执行请求
             response = httpclient.execute(httpPost);
 
