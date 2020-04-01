@@ -111,6 +111,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public void addOauthUser(UmsMember umsMember) {
+        userMapper.insertSelective(umsMember);
+    }
+
     private UmsMember loginFromDb(UmsMember umsMember) {
         //有可能出现两个完全相同的用户名密码，但是不用管，因为这是注册功能的bug，这里可以不做考虑，但是为了保证功能无问题
         List<UmsMember> umsMembers = userMapper.select(umsMember);
