@@ -216,14 +216,7 @@ public class CartController {
         return "cartListInnner";
     }
 
-    @RequestMapping("toTrade")
-    @LoginRequired(loginSuccess = true)
-    public String toTrade (HttpServletResponse response,HttpServletRequest request,ModelMap modelMap){
 
-        String memberId = (String) request.getAttribute("memberId");//这里不能用toString方法，防止null.toString报空指针异常
-        String nikeName = (String) request.getAttribute("nikeName");
-        return "toTrade";
-    }
     private boolean if_cart_exist(List<OmsCartItem> omsCartItems, OmsCartItem omsCartItem) {
         boolean b = false;
         for (OmsCartItem cartItem : omsCartItems) {

@@ -12,7 +12,7 @@ import java.net.URLEncoder;
  */
 public class CookieUtil {
     /***
-     * 获得cookie中的值，默认为主ip：www.gmall.com
+     * 获得cookie中的值，默认为主ip：www.....com
      * @param request
      * @param cookieName
      * @param isDecoder
@@ -69,7 +69,7 @@ public class CookieUtil {
         }
     }
     /***
-     * 获得cookie的主域名，本系统为gmall.com，保存时使用
+     * 获得cookie的主域名，本系统为xxxx.com，保存时使用
      * @param request
      * @return
      */

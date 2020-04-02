@@ -48,5 +48,4 @@ public @interface LoginRequired {
     //登录校验的注解，定义注解要用@interface修饰
     //因为购物车是无论登录与否  都可以通过验证，但是后面的逻辑不同，所以要加一个判断
     boolean loginSuccess() default true;
-
 }

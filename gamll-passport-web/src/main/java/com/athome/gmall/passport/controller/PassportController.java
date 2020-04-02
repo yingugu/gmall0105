@@ -83,8 +83,8 @@ public class PassportController {
         UmsMember umsMember = new UmsMember();
         umsMember.setAccessCode(code);
         umsMember.setAccessToken(accessToken);
-        umsMember.setSourceType(2);
-        umsMember.setSourceUid(Long.parseLong(user_map.get("idstr")));
+        umsMember.setSourceType("2");
+        umsMember.setSourceUid((String) user_map.get("idstr"));
         umsMember.setCity((String)user_map.get("location"));
         umsMember.setNickname((String)user_map.get("screen_name"));
         String gender = (String)user_map.get("gender");
@@ -94,15 +94,43 @@ public class PassportController {
 
             g = "1";
         }
-        umsMember.setGender(Integer.parseInt(g));
+        umsMember.setGender(g);
 
-        userService.addOauthUser(umsMember);
+        UmsMember umsCheck = new UmsMember();
+        umsCheck.setSourceUid(umsMember.getSourceUid());
+        UmsMember umsMemberCheck = userService.checkOauthUser(umsCheck);
+
+        if(umsMemberCheck==null){
+            userService.addOauthUser(umsMember);
+        }else{
+            umsMember = umsMemberCheck;
+        }
+
+        // 生成jwt的token，并且重定向到首页，携带该token
+        String token = null;
+        String memberId = umsMember.getId();
+        String nickname = umsMember.getNickname();
+        Map<String,Object> userMap = new HashMap<>();
+        userMap.put("memberId",memberId);
+        userMap.put("nickname",nickname);
 
 
+        String ip = request.getHeader("x-forwarded-for");// 通过nginx转发的客户端ip
+        if(StringUtils.isBlank(ip)){
+            ip = request.getRemoteAddr();// 从request中获取ip
+            if(StringUtils.isBlank(ip)){
+                ip = "127.0.0.1";
+            }
+        }
 
-        //生成jwt的token并重定向到首页
+        // 按照设计的算法对参数进行加密后，生成token
+        token = JwtUtil.encode("2020gmall0105", userMap, ip);
 
-        return null;
+        // 将token存入redis一份
+        userService.addUserToken(token,memberId);
+
+
+        return "redirect:http://search.gmall.com:8083/index?token="+token;
     }
 
 
@@ -111,7 +139,7 @@ public class PassportController {
 
         //通过jwt校验真假
         Map<String, String> map = new HashMap<>();
-//只有verify认证中心有权利调这个jwtutil
+        //只有verify认证中心有权利调这个jwtutil
         Map<String, Object> decode = JwtUtil.decode(token, "2020gmall0105", currentIp);
         if (decode != null) {
             map.put("status", "success");

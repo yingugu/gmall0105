@@ -23,7 +23,11 @@ gmall-search-service:8074
 gmall-cart-web:8084
 gmall-cart-service:8074
 
-# 
+# 用户认证中心
 gamll-passport-web 8085用户认证中心
 gmall-user-service用户服务的service层8070
+
+# 订单
+gmall-order-web 8086 
+gmall-order-service 8076
 
