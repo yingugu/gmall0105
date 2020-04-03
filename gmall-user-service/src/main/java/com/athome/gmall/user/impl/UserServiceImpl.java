@@ -55,11 +55,13 @@ public class UserServiceImpl implements UserService {
             jedis = redisUtil.getJedis();
             //缓存结构：user:username:info 或 user:username:password 或 user:password:info
             //另一种结构： key:username+md5(password) value:用户信息
+            //正确的结构应该是"user:"+umsMember.getPassword()+ umsMember.getUsername()+":info"
             if (jedis!=null){
                 String umsMemberStr = jedis.get("user:"+umsMember.getPassword()+":info");
                 if (StringUtils.isNotEmpty(umsMemberStr)){
                     UmsMember umsMemberFromCatch = JSON.parseObject(umsMemberStr, UmsMember.class);
                     return umsMemberFromCatch;
+
 
                 }
                 //                else{
